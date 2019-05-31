@@ -6,24 +6,33 @@ from scipy.io.wavfile import read as read_wav
 import analyze
 import record
 import model
+import user_commands
 
 
 def main():
-    feat, label = model.create_training_info('samples_train.csv')
-    clsfr = model.create_clsfr()
-    model.train_clsfr(clsfr, feat, label)
-    feat_test, label_test = model.create_training_info('samples_test.csv')
-    score = model.score_clsfr(clsfr, feat_test, label_test)
+    #user_commands.make_clsfr()
+    user_commands.perform_test()
+    #feat, label = model.create_training_info('samples_train.csv')
+    #clsfr = model.create_clsfr()
+    #model.train_clsfr(clsfr, feat, label)
+    #feat_test, label_test = model.create_training_info('samples_test.csv')
+    #score = model.determine(clsfr, feat_test)
     #freq, wf = read_wav('output.wav')
 
     #features = analyze.extract_features(freq, wf)
 
-    print(score)
+    #print(score)
     #frames = record.record_frames()
     # print(type(frames))
     # print(type(frames[0]))
-    # record.write_frames(frames, 'badsample8.wav')
+    #record.write_frames(frames, 'sample6.wav')
 
+def record_voice(filename=None):
+    frames = record.record_frames()
+    if filename is None:
+        record.write_frames(frames)
+    else:
+        record.write_frames(frames, filename)
 
 if __name__ == "__main__":
     main()
