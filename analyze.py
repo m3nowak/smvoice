@@ -3,6 +3,7 @@ import math
 import python_speech_features as psf
 import numpy as np
 from scipy.io.wavfile import read as read_wav
+import sklearn.preprocessing as skpp
 
 import record
 
@@ -21,13 +22,12 @@ def best_nftt(frequency, window_length):
 def extract_features(freq, wf):
     nftt = best_nftt(freq, WIN_LEN)
     mfcc_feat = psf.mfcc(wf, freq, winlen=WIN_LEN,
-                         winstep=0.01, numcep=13, nfft=nftt, winfunc=np.bartlett,
-                         
-                         )
-    mfcc_feat_d1 = psf.delta(mfcc_feat, 2)
-    mfcc_feat_d2 = psf.delta(mfcc_feat_d1, 2)
+                         winstep=0.01, numcep=13, nfft=nftt, winfunc=np.bartlett)
+    mfcc_feat_scaled = skpp.scale(mfcc_feat)
+    mfcc_feat_d1 = psf.delta(mfcc_feat_scaled, 3)
+    mfcc_feat_d2 = psf.delta(mfcc_feat_d1, 3)
 
-    return np.hstack((mfcc_feat, mfcc_feat_d1, mfcc_feat_d2))
+    return np.hstack((mfcc_feat_scaled, mfcc_feat_d1, mfcc_feat_d2))
 
 def extract_features_file(filename):
     freq, wf = open_wave(filename)

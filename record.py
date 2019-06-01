@@ -10,7 +10,7 @@ RECORD_SECONDS = 3
 WAVE_OUTPUT_FILENAME = "output.wav"
 
 
-def record_frames():
+def record_frames(record_sec=RECORD_SECONDS):
     """
     Record audio frames
         :return list: recorded frames
@@ -28,7 +28,7 @@ def record_frames():
 
     frames = []
 
-    for _ in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
+    for _ in range(0, int(RATE / CHUNK * record_sec)):
         data = stream.read(CHUNK)
         frames.append(data)
 

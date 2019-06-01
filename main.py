@@ -9,12 +9,19 @@ import model
 import user_commands
 import audio_conv
 
+import gmm_model
 
 def main():
-    record_voice()
+    gmm_test_run()
 
-def record_voice(filename=None):
-    frames = record.record_frames()
+def gmm_test_run():
+    gm = gmm_model.train_model()
+    test_res = gmm_model.test_model(gm)
+    for test_re in test_res:
+        print(test_re)
+
+def record_voice(filename=None, length_sec=3):
+    frames = record.record_frames(length_sec)
     if filename is None:
         record.write_frames(frames)
     else:
