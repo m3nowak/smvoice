@@ -28,3 +28,8 @@ def extract_features(freq, wf):
     mfcc_feat_d2 = psf.delta(mfcc_feat_d1, 2)
 
     return np.hstack((mfcc_feat, mfcc_feat_d1, mfcc_feat_d2))
+
+def extract_features_file(filename):
+    freq, wf = open_wave(filename)
+    feat = extract_features(freq, wf)
+    return feat

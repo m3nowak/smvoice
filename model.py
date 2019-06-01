@@ -41,13 +41,8 @@ def read_clsfr():
         clsfr= pickle.load(pklfile)
     return clsfr
 
-def calculate_sample_features(filename):
-    freq, wf = analyze.open_wave(filename)
-    feat = analyze.extract_features(freq, wf)
-    return feat
-
 def determine_from_sample(filename, clsfr):
-    feat = calculate_sample_features(filename)
+    feat = analyze.extract_features_file(filename)
     return determine(clsfr, feat)
 
 def create_features_data(filename):
@@ -56,7 +51,7 @@ def create_features_data(filename):
     with closing(open(filename,'r')) as csvfile:
         dr = DictReader(csvfile)
         for row in dr:
-            feat = calculate_sample_features(row['filename'])
+            feat = analyze.extract_features_file(row['filename'])
             labels = np.ones((feat.shape[0], 1)) * float(row['is_ok'])
             if feat_finale is None:
                 feat_finale = feat
