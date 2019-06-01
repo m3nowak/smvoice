@@ -11,7 +11,8 @@ import user_commands
 
 def main():
     #user_commands.make_clsfr()
-    user_commands.perform_test()
+    user_commands.perform_live_test()
+    #user_commands.test_trial()
     #feat, label = model.create_training_info('samples_train.csv')
     #clsfr = model.create_clsfr()
     #model.train_clsfr(clsfr, feat, label)

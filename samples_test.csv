@@ -1,0 +1,3 @@
+filename,is_ok
+testsample1.wav,1
+testbadsample1.wav,0

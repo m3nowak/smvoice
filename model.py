@@ -12,7 +12,11 @@ THRESHOLD = 0.7
 CLSFR_FILENAME = 'clsfr.pkl'
 
 def create_clsfr(verbose=False):
-    return MLPRegressor(hidden_layer_sizes=(50,25), verbose=verbose, max_iter=2000)
+    return MLPRegressor(
+        hidden_layer_sizes=(50,25),
+        verbose=verbose,
+        max_iter=2000, 
+        activation='logistic')
 
 def train_clsfr(clsfr, x, y):
     clsfr.fit(x,y)
@@ -46,7 +50,7 @@ def determine_from_sample(filename, clsfr):
     feat = calculate_sample_features(filename)
     return determine(clsfr, feat)
 
-def create_training_info(filename):
+def create_features_data(filename):
     feat_finale = None
     labels_finale = None
     with closing(open(filename,'r')) as csvfile:
