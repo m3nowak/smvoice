@@ -39,7 +39,7 @@ def create_model():
     gmm.write_model(gm)
     print("Zakończono")
 
-def gmm_test_run():
+def test_run():
     print("Wczytywanie modelu!")
     gm = gmm.read_model()
     threshold = _read_threshold()
@@ -66,6 +66,7 @@ def interactive_test():
     print("Analizowanie próbki...")
     score = gmm.sample_test(gm, TEMP_FILENAME)
     print("Wynik: {}".format(score))
+    print("Próg: {}".format(threshold))
     if score > threshold:
         print("Zaakceptowano")
     else:
